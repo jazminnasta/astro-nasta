@@ -1,1 +1,1 @@
-# clase-1-nasta
+npx create-react-app clase-2
