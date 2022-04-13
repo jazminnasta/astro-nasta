@@ -1,0 +1,20 @@
+.nav-item {
+	padding: 0 2em;
+}
+
+.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link,
+.navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-brand {
+	color: #DAFDBA;
+	text-align: center;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-brand:hover {
+	color: #9AEBA3;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: transparent;
+    box-shadow: none;
+    outline: none;
+}

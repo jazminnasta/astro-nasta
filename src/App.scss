@@ -1,0 +1,16 @@
+$oscuro: #012030;
+$primario: #13678A;
+$secundario: #45C4B0;
+$alternativo: #9AEBA3;
+$claro: #DAFDBA;
+
+body {
+	background: $oscuro;
+	color: white;
+	a {
+		color: $claro;
+		&:hover {
+			color: $alternativo;
+		}
+	}
+}
