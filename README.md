@@ -1,1 +1,1 @@
-npx create-react-app clase-2
+npx create-react-app astro-nasta
