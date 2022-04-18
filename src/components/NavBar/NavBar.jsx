@@ -1,7 +1,8 @@
 import React from 'react';
 import './NavBar.css';
+import CartWidget from '../CartWidget/CartWidget.js';
 
-function NavBar(props) {
+function NavBar() {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark">
 		  <div className="container-fluid">
@@ -24,6 +25,9 @@ function NavBar(props) {
 		          <a className="nav-link" href="/tazas">Tazas</a>
 		        </li>
 		      </ul>
+		    </div>
+		    <div>
+		    <CartWidget />
 		    </div>
 		  </div>
 		</nav>
