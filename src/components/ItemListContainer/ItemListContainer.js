@@ -14,7 +14,7 @@ function ItemListContainer(props) {
 					{id: 3, titulo: 'Póster Géminis', precio: 1000, imagen: 'poster_geminis.jpeg', stock: 3}
 				];
 				resolve(productosUpdated);
-			}, 500);
+			}, 2000);
 		});
 		function traerProducto() {
 			return fingirServicios;
@@ -34,7 +34,7 @@ function ItemListContainer(props) {
 		<div className="row">
 			<div className="col-12">
 				<div className="alert alert-primary text-center" role="alert">{props.greeting}</div>
-				<ItemList productos={productos} />
+				{productos.length ? <ItemList productos={productos} /> : <p>CARGANDO...</p>}
 			</div>
 		</div>
 	);
