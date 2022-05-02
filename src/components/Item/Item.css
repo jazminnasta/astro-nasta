@@ -1,0 +1,52 @@
+.productos {
+	list-style: none;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 5%;
+}
+
+.productos li {
+	background: #cfe2ff;
+	padding: 1em;
+    margin: 0 2% 1em;
+}
+
+.productos li img {
+	width: 100%;
+}
+
+.productos li h4 {
+	color: #012030;
+	margin-top: 1em;
+	text-transform: uppercase;
+}
+
+.productos li p {
+	color: #012030;
+}
+
+.productos li button {
+	border: none;
+	background: #DAFDBA;
+	color: #012030;
+}
+
+.productos .number {
+	margin-right: 1em;
+}
+
+.productos .number button {
+	background: #cfe2ff;
+	font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+.productos .counter {
+    display: flex;
+}
+
+.productos .number input {
+	width: 2em;
+    text-align: center;
+}
