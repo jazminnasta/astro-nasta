@@ -1,34 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import './ItemDetailContainer.css';
 import ItemDetail from '../ItemDetail/ItemDetail.jsx';
+import { useParams } from 'react-router-dom';
+import { todosLosProductos } from '../../productos.js';
 
 function ItemDetailContainer(props) {
 	const [producto, setProducto] = useState(null);
+	const { id } = useParams();
 
 	useEffect(() => {
 		function getItem() {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
-					resolve({id: 1, titulo: 'Póster Aries', precio: 1000, imagen: 'poster_aries.jpeg', stock: 1, descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed laoreet mauris at vehicula convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec a semper mauris. Sed tincidunt ultricies aliquam. Cras eu dui at nunc molestie eleifend. Sed vitae sagittis libero. Ut non nisl ac nulla tincidunt feugiat mollis nec nisi. Fusce nisl quam, iaculis ac rhoncus ut, maximus sit amet diam.'});
+					const item = todosLosProductos.find(i => i.id == id);
+					resolve(item);
 				}, 2000);
 			});
 		}
 
 		getItem()
 		.then(r => {
-			console.log(r);
 			setProducto(r);
 		}, error => {
 			console.log('error: '+error);
 		}).catch(err => {
 			console.log('catch: '+err);
 		})
-	}, [])
+	}, [id])
 
 	return (
 		<div className="row">
+			{!producto ? <div className="alert alert-primary text-center" role="alert">CARGANDO...</div> : ''}
 			<div className="col-12">
-				{producto ? <ItemDetail producto={producto} /> : <p>CARGANDO...</p>}
+				{producto ? <ItemDetail producto={producto} /> : ''}
 			</div>
 		</div>
 	);

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './App.scss';
@@ -7,19 +8,19 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer.
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer.js';
 
 function App() {
-  const [detalle, setDetalle] = useState(0);
-  useEffect(() => {
-    const url = new URLSearchParams(window.location.search);
-    setDetalle(url.get('detalle'));
-  }, []);
-
   return (
-    <div className="App">
-      <header>
-        <NavBar />
-        {detalle ? <ItemDetailContainer /> : <ItemListContainer greeting="Hello, World!" />}
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header>
+          <NavBar />
+          <Routes>
+            <Route exact path="/" element={<ItemListContainer />} />
+            <Route exact path="/category/:id" element={<ItemListContainer />} />
+            <Route exact path="/item/:id" element={<ItemDetailContainer />} />
+          </Routes>
+        </header>
+      </div>
+    </BrowserRouter>
   );
 }
 

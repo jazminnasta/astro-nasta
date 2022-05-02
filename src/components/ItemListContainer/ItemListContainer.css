@@ -2,3 +2,12 @@
 	border-radius: 0;
 	text-transform: uppercase;
 }
+
+.productos {
+	flex-wrap: wrap;
+}
+
+.productos li {
+  flex-grow: 1;
+  width: 29%;
+}

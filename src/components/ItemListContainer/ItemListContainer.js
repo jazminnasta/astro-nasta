@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList.jsx';
+import { useParams } from 'react-router-dom';
+import { todosLosProductos } from '../../productos.js';
 
 function ItemListContainer(props) {
 	const [productos, setProductos] = useState([]);
+	const { id } = useParams();
+	const [cargando, setCargando] = useState(true);
 
 	useEffect(() => {
 		const fingirServicios = new Promise((resolve, reject) => {
+			setCargando(true);
 			setTimeout(() => {
-				const productosUpdated = [
-					{id: 1, titulo: 'Póster Aries', precio: 1000, imagen: 'poster_aries.jpeg', stock: 1},
-					{id: 2, titulo: 'Póster Tauro', precio: 1000, imagen: 'poster_tauro.jpeg', stock: 2},
-					{id: 3, titulo: 'Póster Géminis', precio: 1000, imagen: 'poster_geminis.jpeg', stock: 3}
-				];
+				const productosUpdated = id ? todosLosProductos.filter(i => i.categoria == id) : todosLosProductos;
 				resolve(productosUpdated);
 			}, 2000);
 		});
@@ -23,18 +24,19 @@ function ItemListContainer(props) {
 		traerProducto()
 		.then(r => {
 			setProductos(r);
+			setCargando(false);
 		}, error => {
 			console.log('error: '+error);
 		}).catch(err => {
 			console.log('catch: '+err);
 		})
-	}, [])
+	}, [id])
 
 	return (
 		<div className="row">
 			<div className="col-12">
-				<div className="alert alert-primary text-center" role="alert">{props.greeting}</div>
-				{productos.length ? <ItemList productos={productos} /> : <p>CARGANDO...</p>}
+				<div className="alert alert-primary text-center" role="alert">{cargando ? 'CARGANDO...' : id ? 'CATEGORÍA '+id : 'SHOP'}</div>
+				{!productos.length && !cargando ? <p>No hay resultados</p> : <ItemList productos={productos} />}
 			</div>
 		</div>
 	);
