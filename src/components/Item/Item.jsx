@@ -9,7 +9,7 @@ function Item({producto}) {
                 <img src={'/images/'+producto.imagen} alt={producto.titulo} />
                 <h4>{producto.titulo}</h4>
                 <p>${producto.precio}</p>
-                <button className="btn mb-3">{producto.stock == 1 ? '1 disponible' : producto.stock+' disponibles'}</button>
+                <button className="btn mb-3">{producto.stock === 1 ? '1 disponible' : producto.stock+' disponibles'}</button>
             </NavLink>
         </li>
     );

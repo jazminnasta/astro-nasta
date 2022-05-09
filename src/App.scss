@@ -22,7 +22,30 @@ body {
 	}
 	.btn {
 		border: none;
-    	background: #DAFDBA;
-    	color: #012030;
+    	background: $claro;
+    	color: $oscuro;
+    	&:focus {
+    		box-shadow: none;
+    	}
+    	&.nmb {
+    		width: 2.2em;
+    		text-align: center;
+    		background: transparent;
+    		color: $claro;
+    		&:first-child {
+    			margin-left: 2%;
+    		}
+    	}
+	}
+
+	input[type="number"] {
+	    padding: 0.375rem 0.75rem;
+	    font-size: 1.2em;
+	    border-radius: 0.25rem;
+	    width: 2.9em;
+	    border: none;
+	    background: transparent;
+	    color: white;
+	    text-align: right;
 	}
 }

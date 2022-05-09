@@ -1,10 +1,84 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import CartContext from '../../context/CartContext';
+import Item from '../Item/Item.jsx';
+import './Cart.css';
 
 function Cart() {
+    const cartCtx = useContext(CartContext);
+    const [subtotal, setSubtotal] = useState(0);
+
+    function getSubtotal() {
+        if(cartCtx.products.length > 0) {
+            let sum = 0;
+            cartCtx.products.forEach(e => {
+                sum += e.p.precio * e.q;
+            });
+            return sum;
+        }
+        return 0;
+    }
+
+    useEffect(() => {
+        setSubtotal(getSubtotal());
+    }, [])
+
     return (
         <div className="row">
             <div className="col-12">
-                <p className="p-4">CART</p>
+                
+                {cartCtx.products.length > 0 &&
+                    <div className="container mt-5" id="cart">
+                        <div className="table-responsive shopping-cart">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th className="text-center">Cantidad</th>
+                                        <th className="text-center">Subtotal</th>
+                                        <th className="text-center">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cartCtx.products.map(p => {
+                                        return ([
+                                            <tr>
+                                                <td>
+                                                    <div className="product-item">
+                                                        <a className="product-thumb" href="#"><img src={'../images/'+p.p.imagen} alt={p.p.titulo} /></a>
+                                                        <div className="product-info">
+                                                            <h4 className="product-title"><a href="#">{p.p.titulo}</a></h4><span className="capitalize"><em>Categoría:</em> {p.p.categoria}</span><span><em>Tamaño:</em> 10.5</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="text-center">
+                                                    <div className="count-input">
+                                                        {p.q}
+                                                    </div>
+                                                </td>
+                                                <td className="text-center text-lg text-medium">${p.p.precio * p.q}</td>
+                                                <td className="text-center"><small><button className="btn" onClick={() => {cartCtx.removeItem(p.id)}}>Eliminar</button></small></td>
+                                            </tr>
+                                        ]);
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="shopping-cart-footer">
+                            <div className="column text-lg">Subtotal: <span className="text-medium">${subtotal}</span></div>
+                        </div>
+                        <div className="shopping-cart-footer">
+                            <div className="column">
+                                <button className="btn" onClick={cartCtx.clear}>Vaciar carrito</button>
+                                <a className="btn btn-success" href="javascript:alert('comprar');">Comprar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                {cartCtx.products.length < 1 && 
+                    <p className="m-4 text-center">
+                        <span className="d-block p-5">Carrito vacío</span>
+                    </p>
+                }
             </div>
         </div>
     );

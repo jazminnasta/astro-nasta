@@ -13,9 +13,9 @@ function ItemListContainer(props) {
 		const fingirServicios = new Promise((resolve, reject) => {
 			setCargando(true);
 			setTimeout(() => {
-				const productosUpdated = id ? todosLosProductos.filter(i => i.categoria == id) : todosLosProductos;
+				const productosUpdated = id ? todosLosProductos.filter(i => i.categoria === id) : todosLosProductos;
 				resolve(productosUpdated);
-			}, 2000);
+			}, 1000);
 		});
 		function traerProducto() {
 			return fingirServicios;

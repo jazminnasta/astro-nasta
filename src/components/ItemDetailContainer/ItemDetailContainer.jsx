@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './ItemDetailContainer.css';
 import ItemDetail from '../ItemDetail/ItemDetail.jsx';
 import { useParams } from 'react-router-dom';
@@ -12,9 +12,9 @@ function ItemDetailContainer(props) {
 		function getItem() {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {
-					const item = todosLosProductos.find(i => i.id == id);
+					const item = todosLosProductos.find(i => parseInt(i.id) === parseInt(id));
 					resolve(item);
-				}, 2000);
+				}, 1000);
 			});
 		}
 
