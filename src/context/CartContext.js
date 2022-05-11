@@ -1,6 +1,7 @@
 import {createContext, useState, useEffect} from 'react';
 
 const CartContext = createContext({
+	totalQ: 0,
 	products: [],
 	addItem: () => {},
 	removeItem: () => {},
@@ -10,9 +11,10 @@ const CartContext = createContext({
 
 export const CartContextProvider = ({children}) => {
 	const [products, setProducts] = useState([]);
+	const [totalQ, setTotalQ] = useState(10);
 
 	useEffect(() => {
-		console.log(products);
+		setTotalQ(getTotal);
 	}, [products]);
 
 	const addItem = (q, p) => {
@@ -32,11 +34,16 @@ export const CartContextProvider = ({children}) => {
 		setProducts(products.filter(i => parseInt(i.id) !== parseInt(id)));
 	}
 
-
 	const clear = () => {
 		setProducts([]);
 	}
 
+	const getTotal = () => {
+		const sum = products.reduce((t, e) => {
+  			return t + e.q;
+		}, 0);
+		return sum;
+	}
 
 	const isInCart = (id) => {
 		const index = products.findIndex(e => {
@@ -49,6 +56,7 @@ export const CartContextProvider = ({children}) => {
 
 	return (
 		<CartContext.Provider value={{
+			totalQ,
 			products,
 			addItem,
 			removeItem,

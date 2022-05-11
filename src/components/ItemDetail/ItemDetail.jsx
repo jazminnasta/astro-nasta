@@ -17,7 +17,8 @@ function ItemDetail({producto}) {
                     <h3>${producto.precio}</h3>
                     <p>{producto.descripcion}</p>
                     <p className="text-muted fst-italic">Stock: {producto.stock}</p>
-                    {cartCtx.isInCart(producto.id) ? <Link to={`/cart`} className="btn">Producto agregado</Link> : <ItemCount onAdd={cartCtx.addItem} stock={producto.stock} initial={1} producto={producto} /> }
+                    <ItemCount onAdd={cartCtx.addItem} stock={producto.stock} initial={1} producto={producto} />
+                    {cartCtx.isInCart(producto.id) ? <Link to={`/cart`} className="btn mt-2">Ver resumen</Link> : '' }
                 </div>
           	</div>
         </div>

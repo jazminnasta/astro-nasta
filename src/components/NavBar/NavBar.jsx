@@ -7,7 +7,7 @@ function NavBar() {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark">
 		  <div className="container-fluid">
-		    <a className="navbar-brand" href="/">AstroShop</a>
+		    <NavLink to={`/`} className="navbar-brand">AstroShop</NavLink>
 		    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarShop" aria-controls="navbarShop" aria-expanded="false" aria-label="Toggle navigation">
 		      <span className="navbar-toggler-icon"></span>
 		    </button>

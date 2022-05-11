@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import CartContext from '../../context/CartContext';
 import Item from '../Item/Item.jsx';
 import './Cart.css';
+import { Link } from 'react-router-dom';
 
 function Cart() {
     const cartCtx = useContext(CartContext);
@@ -19,8 +20,9 @@ function Cart() {
     }
 
     useEffect(() => {
+        console.log('recalcular');
         setSubtotal(getSubtotal());
-    }, [])
+    }, [cartCtx.products])
 
     return (
         <div className="row">
@@ -41,7 +43,7 @@ function Cart() {
                                 <tbody>
                                     {cartCtx.products.map(p => {
                                         return ([
-                                            <tr>
+                                            <tr key={p.id}>
                                                 <td>
                                                     <div className="product-item">
                                                         <a className="product-thumb" href="#"><img src={'../images/'+p.p.imagen} alt={p.p.titulo} /></a>
@@ -76,7 +78,8 @@ function Cart() {
                 }
                 {cartCtx.products.length < 1 && 
                     <p className="m-4 text-center">
-                        <span className="d-block p-5">Carrito vacío</span>
+                        <span className="d-block p-5">No hay ítems en el carrito</span>
+                        <Link to={`/`} className="btn mt-2">Ver productos</Link>
                     </p>
                 }
             </div>
