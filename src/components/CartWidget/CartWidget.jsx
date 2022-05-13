@@ -7,7 +7,7 @@ import CartContext from '../../context/CartContext';
 function CartWidget() {
   const cartCtx = useContext(CartContext);
   return (
-    <Link to={`/cart`} className="transparent position-relative" className={cartCtx.totalQ ? 'visible' : 'invisible'}>
+    <Link to={`/cart`} className={cartCtx.totalQ ? 'visible transparent position-relative' : 'invisible transparent position-relative'}>
       <img alt="" src={cart} />
       <span className="count">{cartCtx.totalQ}</span>
     </Link>

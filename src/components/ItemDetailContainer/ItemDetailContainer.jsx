@@ -1,32 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ItemDetailContainer.css';
 import ItemDetail from '../ItemDetail/ItemDetail.jsx';
 import { useParams } from 'react-router-dom';
-import { todosLosProductos } from '../../productos.js';
+import {doc, getDoc, getFirestore} from 'firebase/firestore';
 
 function ItemDetailContainer(props) {
 	const [producto, setProducto] = useState(null);
 	const { id } = useParams();
 
 	useEffect(() => {
-		function getItem() {
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					const item = todosLosProductos.find(i => parseInt(i.id) === parseInt(id));
-					resolve(item);
-				}, 1000);
-			});
-		}
+		const db = getFirestore();
+		const productoDB = doc(db, 'products', id);
 
-		getItem()
-		.then(r => {
-			setProducto(r);
-		}, error => {
-			console.log('error: '+error);
-		}).catch(err => {
-			console.log('catch: '+err);
-		})
-	}, [id])
+		getDoc(productoDB).then((snapshot) => {
+			if(snapshot.exists())
+				setProducto({ id: snapshot.id, ...snapshot.data() });
+		});
+	}, [id]);
 
 	return (
 		<div className="row">

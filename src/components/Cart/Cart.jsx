@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import CartContext from '../../context/CartContext';
-import Item from '../Item/Item.jsx';
 import './Cart.css';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +19,6 @@ function Cart() {
     }
 
     useEffect(() => {
-        console.log('recalcular');
         setSubtotal(getSubtotal());
     }, [cartCtx.products])
 
@@ -46,9 +44,9 @@ function Cart() {
                                             <tr key={p.id}>
                                                 <td>
                                                     <div className="product-item">
-                                                        <a className="product-thumb" href="#"><img src={'../images/'+p.p.imagen} alt={p.p.titulo} /></a>
+                                                        <img src={'../images/'+p.p.imagen} alt={p.p.titulo} />
                                                         <div className="product-info">
-                                                            <h4 className="product-title"><a href="#">{p.p.titulo}</a></h4><span className="capitalize"><em>Categoría:</em> {p.p.categoria}</span><span><em>Tamaño:</em> 10.5</span>
+                                                            <h4 className="product-title">{p.p.titulo}</h4><span className="capitalize"><em>Categoría:</em> {p.p.categoria}</span><span><em>Tamaño:</em> 10.5</span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -71,7 +69,7 @@ function Cart() {
                         <div className="shopping-cart-footer">
                             <div className="column">
                                 <button className="btn" onClick={cartCtx.clear}>Vaciar carrito</button>
-                                <a className="btn btn-success" href="javascript:alert('comprar');">Comprar</a>
+                                <button className="btn" onClick={() => {alert('comprar')}}>Comprar</button>
                             </div>
                         </div>
                     </div>

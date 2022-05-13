@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList.jsx';
 import { useParams } from 'react-router-dom';
-import { todosLosProductos } from '../../productos.js';
+import {collection, getDocs, getFirestore, query, where} from 'firebase/firestore';
 
 function ItemListContainer(props) {
 	const [productos, setProductos] = useState([]);
@@ -10,27 +10,26 @@ function ItemListContainer(props) {
 	const [cargando, setCargando] = useState(true);
 
 	useEffect(() => {
-		const fingirServicios = new Promise((resolve, reject) => {
-			setCargando(true);
-			setTimeout(() => {
-				const productosUpdated = id ? todosLosProductos.filter(i => i.categoria === id) : todosLosProductos;
-				resolve(productosUpdated);
-			}, 1000);
-		});
-		function traerProducto() {
-			return fingirServicios;
-		}
+		const db = getFirestore();
+		const productosDB = collection(db, 'products');
+		const q = id ? query(
+			productosDB,
+			where('categoria', '==', id)	
+		) : false;
 
-		traerProducto()
-		.then(r => {
-			setProductos(r);
+		getDocs(id ? q : productosDB).then((snapshot) => {
+			setProductos(snapshot.docs.map(doc => { return { ...doc.data(), id: doc.id } }));
 			setCargando(false);
-		}, error => {
-			console.log('error: '+error);
-		}).catch(err => {
-			console.log('catch: '+err);
-		})
-	}, [id])
+		});
+
+		// getDocs(productosDB).then((snapshot) => {
+		// 	const todosLosProductos = snapshot.docs.map(doc => { return { ...doc.data(), id: doc.id } });
+		// 	const productosUpdated = id ? todosLosProductos.filter(i => i.categoria === id) : todosLosProductos;
+
+		// 	setProductos(productosUpdated);
+		// 	setCargando(false);
+		// });
+	}, [id]);
 
 	return (
 		<div className="row">
