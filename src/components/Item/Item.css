@@ -20,10 +20,12 @@
 	color: #012030;
 	margin-top: 1em;
 	text-transform: uppercase;
+	font-family: 'Roboto Slab', serif;
 }
 
 .productos li p {
 	color: #012030;
+	font-weight: 300;
 }
 
 .productos .number {

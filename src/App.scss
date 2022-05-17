@@ -4,9 +4,12 @@ $secundario: #45C4B0;
 $alternativo: #9AEBA3;
 $claro: #DAFDBA;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300;400&display=swap');
+
 body {
 	background: $oscuro;
 	color: white;
+	font-family: 'Roboto', sans-serif;
 	a {
 		text-decoration: none;
 		color: $claro;
@@ -24,6 +27,11 @@ body {
 		border: none;
     	background: $claro;
     	color: $oscuro;
+    	font-size: 0.9em;
+    	&.alt {
+    		background: $primario;
+    		color: $claro;
+    	}
     	&:focus {
     		box-shadow: none;
     	}

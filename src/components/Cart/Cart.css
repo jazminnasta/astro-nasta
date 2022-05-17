@@ -70,6 +70,9 @@ select.form-control {
     padding-bottom: 17px;
     border-width: 1px;
     border: none;
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: transparent;
 }
 
 .shopping-cart .remove-from-cart,
@@ -107,14 +110,13 @@ select.form-control {
 .order-table .product-item .product-thumb,
 .order-table .product-item .product-info {
     display: table-cell;
-    vertical-align: top
+    vertical-align: middle;
 }
 
 .shopping-cart .product-item .product-thumb,
 .wishlist-table .product-item .product-thumb,
 .order-table .product-item .product-thumb {
-    width: 130px;
-    padding-right: 20px
+    width: 6em;
 }
 
 .shopping-cart .product-item .product-thumb>img,
@@ -155,8 +157,8 @@ select.form-control {
 .order-table .product-item .product-title {
     margin-bottom: 6px;
     padding-top: 5px;
-    font-size: 16px;
-    font-weight: 500
+    font-size: 1.2em;
+    font-family: 'Roboto Slab', serif;
 }
 
 .shopping-cart .product-item .product-title>a,
@@ -196,7 +198,7 @@ select.form-control {
     display: table;
     width: 100%;
     padding: 10px 0;
-    border-top: 1px solid #e1e7ec
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .shopping-cart-footer>.column {
@@ -241,4 +243,16 @@ select.form-control {
 
 .capitalize {
     text-transform: capitalize;
+}
+
+.table>:not(:first-child) {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shopping-cart>table>tbody>tr:first-child>td {
+    padding-top: 2em;
+}
+
+#cart {
+    max-width: 800px;
 }

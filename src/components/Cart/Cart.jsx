@@ -20,7 +20,7 @@ function Cart() {
 
     useEffect(() => {
         setSubtotal(getSubtotal());
-    }, [cartCtx.products])
+    }, [cartCtx.products]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="row">
@@ -44,9 +44,9 @@ function Cart() {
                                             <tr key={p.id}>
                                                 <td>
                                                     <div className="product-item">
-                                                        <img src={'../images/'+p.p.imagen} alt={p.p.titulo} />
+                                                        <img className="product-thumb" src={'../images/'+p.p.imagen} alt={p.p.titulo} />
                                                         <div className="product-info">
-                                                            <h4 className="product-title">{p.p.titulo}</h4><span className="capitalize"><em>Categoría:</em> {p.p.categoria}</span><span><em>Tamaño:</em> 10.5</span>
+                                                            <h4 className="product-title"><Link to={'/item/'+p.p?.id}>{p.p.titulo}</Link></h4><span className="capitalize"><em>Categoría:</em> {p.p.categoria}</span><span><em>Tamaño:</em> 10.5</span>
                                                         </div>
                                                     </div>
                                                 </td>

@@ -14,7 +14,7 @@ export const CartContextProvider = ({children}) => {
 	const [products, setProducts] = useState([]);
 	const [totalQ, setTotalQ] = useState(10);
 	const notify = (q, p) => {
-        toast(q + ' x ' + p.titulo +' agregado', {
+        toast(q + ' x ' + p.titulo +' en carrito', {
             duration: 3000,
             position: 'top-right'}
         );
@@ -22,13 +22,17 @@ export const CartContextProvider = ({children}) => {
 
 	useEffect(() => {
 		setTotalQ(getTotal);
-	}, [products]);
+	}, [products]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	const addItem = (q, p) => {
+	const addItem = (q, p, overwrite = null) => {
 		if(isInCart(p.id)) {
 			let original = products.find(i => parseInt(i.id) === parseInt(p.id));
 			let removed = products.filter(i => parseInt(i.id) !== parseInt(p.id));
-			const newProduct = {id: p.id, q: original.q + q, p: p}
+			let final = q;
+			if(!overwrite) {
+				final = original.q + q;
+			}
+			const newProduct = {id: p.id, q: final, p: p}
 			setProducts([newProduct, ...removed]);
 		} else {
 			const newProduct = {id: p.id, q: q, p: p}
@@ -61,6 +65,17 @@ export const CartContextProvider = ({children}) => {
 		return index !== -1;
 	}
 
+	const getQItem = (id) => {
+		let total = 0;
+		products.findIndex(e => {
+			if(parseInt(e.id) === parseInt(id)) {
+				total = e.q;
+			}
+			return total;
+		});
+		return total;
+	}
+
 	return (
 		<CartContext.Provider value={{
 			totalQ,
@@ -68,7 +83,8 @@ export const CartContextProvider = ({children}) => {
 			addItem,
 			removeItem,
 			clear,
-			isInCart
+			isInCart,
+			getQItem
 		}}>
 			<Toaster/>
 			{children}

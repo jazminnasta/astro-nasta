@@ -1,6 +1,16 @@
 .alert {
+	font-family: 'Roboto Slab', serif;
 	border-radius: 0;
 	text-transform: uppercase;
+}
+
+.alert.alert-primary {
+	padding-top: 2em;
+	padding-bottom: 1em;
+	background: none;
+	border: none;
+	color: white;
+	font-size: 2em;
 }
 
 .productos {

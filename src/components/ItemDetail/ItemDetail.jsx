@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import ItemCount from '../ItemCount/ItemCount.jsx';
-import { Link } from 'react-router-dom';
 import CartContext from '../../context/CartContext';
+import './ItemDetail.css';
 
 function ItemDetail({producto}) {
     const cartCtx = useContext(CartContext);
@@ -18,7 +18,6 @@ function ItemDetail({producto}) {
                     <p>{producto.descripcion}</p>
                     <p className="text-muted fst-italic">Stock: {producto.stock}</p>
                     <ItemCount onAdd={cartCtx.addItem} stock={producto.stock} initial={1} producto={producto} />
-                    {cartCtx.isInCart(producto.id) ? <Link to={`/cart`} className="btn mt-2">Ver resumen</Link> : '' }
                 </div>
           	</div>
         </div>
