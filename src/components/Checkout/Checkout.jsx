@@ -41,11 +41,10 @@ function Checkout() {
                 items: productos,
                 date: new Date(),
                 total: subtotal
-            });
+            })
             setCargando(false);
             if(orden.id) {
                 cartCtx.ordenRecibida(orden.id);
-                navigate('/gracias');
             } else {
                 alert('Hubo un error. Por favor, intente de nuevo');
             }

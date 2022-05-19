@@ -1,5 +1,7 @@
 import {createContext, useState, useEffect} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import {doc, getDoc, updateDoc, getFirestore} from 'firebase/firestore';
 
 const CartContext = createContext({
 	totalQ: 0,
@@ -11,6 +13,7 @@ const CartContext = createContext({
 });
 
 export const CartContextProvider = ({children}) => {
+	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
 	const [orden, setOrden] = useState(null);
 	const [totalQ, setTotalQ] = useState(10);
@@ -78,8 +81,22 @@ export const CartContextProvider = ({children}) => {
 	}
 
 	const ordenRecibida = (id) => {
+		const db = getFirestore();
+		products.forEach((element) => {
+			const productoDB = doc(db, 'products', element.id);
+			getDoc(productoDB).then((snapshot) => {
+				if(snapshot.exists()){
+					const original = snapshot.data().stock;
+					const compra = element.q;
+					const updated = original - compra;
+					updateDoc(productoDB, {stock: updated});
+				}
+			});
+		    
+		});
 		setOrden(id);
 		setProducts([]);
+		navigate('/gracias');
 	}
 
 	return (
