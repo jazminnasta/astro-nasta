@@ -69,7 +69,7 @@ function Cart() {
                         <div className="shopping-cart-footer">
                             <div className="column">
                                 <button className="btn" onClick={cartCtx.clear}>Vaciar carrito</button>
-                                <button className="btn" onClick={() => {alert('comprar')}}>Comprar</button>
+                                <Link to={`/checkout`} className="btn">Finalizar compra</Link>
                             </div>
                         </div>
                     </div>

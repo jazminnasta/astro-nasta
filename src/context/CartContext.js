@@ -12,6 +12,7 @@ const CartContext = createContext({
 
 export const CartContextProvider = ({children}) => {
 	const [products, setProducts] = useState([]);
+	const [orden, setOrden] = useState(null);
 	const [totalQ, setTotalQ] = useState(10);
 	const notify = (q, p) => {
         toast(q + ' x ' + p.titulo +' en carrito', {
@@ -76,6 +77,11 @@ export const CartContextProvider = ({children}) => {
 		return total;
 	}
 
+	const ordenRecibida = (id) => {
+		setOrden(id);
+		setProducts([]);
+	}
+
 	return (
 		<CartContext.Provider value={{
 			totalQ,
@@ -84,7 +90,9 @@ export const CartContextProvider = ({children}) => {
 			removeItem,
 			clear,
 			isInCart,
-			getQItem
+			getQItem,
+			ordenRecibida,
+			orden
 		}}>
 			<Toaster/>
 			{children}

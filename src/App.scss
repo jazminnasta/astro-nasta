@@ -10,6 +10,9 @@ body {
 	background: $oscuro;
 	color: white;
 	font-family: 'Roboto', sans-serif;
+	.slab {
+		font-family: 'Roboto Slab', sans-serif;
+	}
 	a {
 		text-decoration: none;
 		color: $claro;
