@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import CartContext from '../../context/CartContext';
 import './Checkout.css';
 import { useNavigate } from 'react-router-dom';
-import {collection, addDoc, getFirestore} from 'firebase/firestore';
+import { saveOrder } from "../../firebase/firebase.js";
 
 function Checkout() {
     const navigate = useNavigate();
@@ -24,6 +24,10 @@ function Checkout() {
     }
 
     const changeInputValue = (e) => {
+        if(e.target.name === 'email2') {
+            document.getElementById('inputEmail2').classList.remove("is-invalid");
+            return;
+        }
         setBuyer({...buyer, [e.target.name]: e.target.value});
     }
 
@@ -32,22 +36,15 @@ function Checkout() {
         event.stopPropagation();
         setCargando(true);
 
-        const db = getFirestore();
-        const orderDB = collection(db, 'orders');
-
         try {
-            const orden = await addDoc(orderDB, {
-                buyer: buyer,
-                items: productos,
-                date: new Date(),
-                total: subtotal
-            })
-            setCargando(false);
-            if(orden.id) {
-                cartCtx.ordenRecibida(orden.id);
-            } else {
-                alert('Hubo un error. Por favor, intente de nuevo');
-            }
+            saveOrder(buyer, productos, subtotal).then((orden) => {
+                setCargando(false);
+                if(orden.id) {
+                    cartCtx.ordenRecibida(orden.id);
+                } else {
+                    alert('Hubo un error. Por favor, intente de nuevo');
+                }
+            });
         } catch (e) {
             console.log('error', e);
         }
@@ -67,13 +64,18 @@ function Checkout() {
         setProductos(temp);
         var forms = document.getElementsByClassName('needs-validation');
         Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            } 
-            form.classList.add('was-validated');
-          }, false);
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } 
+                if(document.getElementById('inputEmail').value !== document.getElementById('inputEmail2').value) {
+                    document.getElementById('inputEmail2').classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
         });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -120,19 +122,28 @@ function Checkout() {
                                     El nombre es obligatorio.
                                 </div>
                             </div>
-                          </div>
-                          <div className="form-group row mb-3">
+                        </div>
+                        <div className="form-group row mb-3">
                             <label htmlFor="inputTelefono" className="col-sm-2 col-form-label">Teléfono</label>
                             <div className="col-sm-10">
                                 <input type="text" name="telefono" className="form-control" id="inputTelefono" placeholder="Teléfono" onChange={changeInputValue} />
                             </div>
-                          </div>
-                          <div className="form-group row mb-3">
+                        </div>
+                        <div className="form-group row mb-3">
                             <label htmlFor="inputEmail" className="col-sm-2 col-form-label">Email</label>
                             <div className="col-sm-10">
                                 <input type="email" name="email" className="form-control" id="inputEmail" placeholder="Email" required onChange={changeInputValue} />
                                 <div className="invalid-feedback">
                                     El e-mail es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group row mb-3">
+                            <label htmlFor="inputEmail2" className="col-sm-2 col-form-label">Repetir email</label>
+                            <div className="col-sm-10">
+                                <input type="email" name="email2" className="form-control" id="inputEmail2" placeholder="Repetir email" required onChange={changeInputValue} />
+                                <div className="invalid-feedback">
+                                    Los e-mails no coinciden.
                                 </div>
                             </div>
                         </div>

@@ -15,25 +15,25 @@ function NavBar() {
 		      <ul className="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
 		        <li className="nav-item">
 		          	<NavLink to={`/category/fuego`} className="fuego">
-		          		<span><img src="./../iconos/icono_fuego.png" /></span>
+		          		<span><img alt="" src="./../iconos/icono_fuego.png" /></span>
 		          		<span>Fuego</span>
 		          	</NavLink>
 		        </li>
 		        <li className="nav-item">
 		        	<NavLink to={`/category/tierra`} className="tierra">
-		          		<span><img src="./../iconos/icono_tierra.png" /></span>
+		          		<span><img alt="" src="./../iconos/icono_tierra.png" /></span>
 		          		<span>Tierra</span>
 		          	</NavLink>
 		        </li>
 		        <li className="nav-item">
 		        	<NavLink to={`/category/aire`} className="aire">
-		        		<span><img src="./../iconos/icono_aire.png" /></span>
+		        		<span><img alt="" src="./../iconos/icono_aire.png" /></span>
 		        		<span>Aire</span>
 		        	</NavLink>
 		        </li>
 		        <li className="nav-item">
 		        	<NavLink to={`/category/agua`} className="agua">
-		        		<span><img src="./../iconos/icono_agua.png" /></span>
+		        		<span><img alt="" src="./../iconos/icono_agua.png" /></span>
 		        		<span>Agua</span>
 		        	</NavLink>
 		        </li>

@@ -21,7 +21,8 @@ function Gracias() {
                     <div className="card-body text-center">
                         <h2 className="card-title slab">¡Su compra fue recibida!</h2>
                         <p className="card-text">Recibirá el pedido con ID {orden} muy pronto</p>
-                        <Link to={`/`} className="btn mt-2">Volver a productos</Link>
+                        <Link to={'/'} className="btn alt mt-2">Volver a productos</Link>
+                        <Link to={'/ordenes/'+orden} className="btn mt-2 ms-4">Ver estado de mi orden</Link>
                     </div>
                 </div>
             </div>
